@@ -25,3 +25,6 @@ Route::group(['prefix' => 'wse'], function () {
 });
 
 Route::get('/signin', [AuthController::class, 'signin'])->name('signin');
+Route::post('/signin', [AuthController::class, 'signinAction'])->name('signinAction');
+
+Route::get('/dashboard', [MainController::class, 'dashboard'])->name('dashboard');

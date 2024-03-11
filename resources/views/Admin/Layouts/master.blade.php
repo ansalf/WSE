@@ -6,6 +6,9 @@
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
   <title>Blank Page &mdash; Stisla</title>
 
+  <!-- Admin LTE -->
+  <link rel="stylesheet" href="{{ asset('assets/modules/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}">
+
   <!-- General CSS Files -->
   <link rel="stylesheet" href="{{ asset('assets/modules/bootstrap/css/bootstrap.min.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/modules/fontawesome/css/all.min.css') }}">
@@ -24,6 +27,9 @@
 
   gtag('config', 'UA-94034622-3');
 </script>
+
+
+
 <!-- /END GA --></head>
 
 <body>
@@ -428,9 +434,56 @@
   <!-- JS Libraies -->
 
   <!-- Page Specific JS File -->
+
+  <!-- Admin LTE -->
+  <script src="{{ asset('assets/modules/sweetalert2/sweetalert2.min.js') }}"></script>
   
   <!-- Template JS File -->
   <script src="{{ asset('assets/js/scripts.js') }}"></script>
   <script src="{{ asset('assets/js/custom.js') }}"></script>
+
+  <script>  
+  $(function() {
+      var Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000
+      });
+
+       if({{ Session::has('success') }})
+       {
+          Toast.fire({
+            icon: 'success',
+            title: "{{ Session::get('success') }}",
+          }) 
+       }
+       
+      $('.swalDefaultInfo').click(function() {
+        Toast.fire({
+          icon: 'info',
+          title: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+        })
+      });
+      $('.swalDefaultError').click(function() {
+        Toast.fire({
+          icon: 'error',
+          title: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+        })
+      });
+      $('.swalDefaultWarning').click(function() {
+        Toast.fire({
+          icon: 'warning',
+          title: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+        })
+      });
+      $('.swalDefaultQuestion').click(function() {
+        Toast.fire({
+          icon: 'question',
+          title: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+        })
+      });
+    });
+  </script>
 </body>
 </html>

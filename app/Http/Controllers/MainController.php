@@ -35,4 +35,9 @@ class MainController extends Controller
     {
         return view('main.struktur');
     }
+
+    public function dashboard()
+    {
+        return view('Admin.Layouts.master');
+    }
 }
