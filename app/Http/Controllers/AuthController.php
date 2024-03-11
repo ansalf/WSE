@@ -29,4 +29,12 @@ class AuthController extends Controller
             'message' => "Login Gagal"
         ], 200);
     }
+
+    public function signout() {
+        Auth::logout();
+        Session::flash('success', 'Signout Success\n Anda berhasil Logout');
+        return response()->json([
+            'success' => true
+        ], 200);
+    }
 }

@@ -123,6 +123,14 @@
           showConfirmButton: false,
           timer: 3000
         });
+  
+        if({{ Session::has('success') }})
+         {
+            Toast.fire({
+              icon: 'success',
+              title: "{{ Session::get('success') }}",
+            }) 
+         }
 
         function setError(title) {
             Toast.fire({
