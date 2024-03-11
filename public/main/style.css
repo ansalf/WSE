@@ -1,0 +1,65 @@
+.logo {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+  }
+
+.p1 {
+    width: 800px;
+  }
+
+  .icon {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .icon img {
+    width: 50%;
+    height: 50%;
+    object-fit: contain;
+  }
+
+  .card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    height: 100%;
+  }
+
+  .card-img-top {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin: 10px auto 0;
+  }
+  .card-container {
+    display: flex;
+    grid-template-columns: 1fr;
+    grid-gap: 20px;
+    height: 100%;
+    
+  }
+  
+.color {
+    color: #01d28e;
+    color: #1089ff;
+
+    color: #4942E4;
+    color: #C147E9;
+
+    color: #6F38C5;
+    color: #87A2FB;
+
+    color: #8758FF;
+    color: #87A2FB;
+
+    color: #26176Aff;
+    color: #DE8C05ff;
+}  
+
+/* ftco-about */
+/* .services.services-2 .icon */
