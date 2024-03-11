@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
 
@@ -15,8 +16,12 @@ use App\Http\Controllers\MainController;
 */
 
 Route::get('/', [MainController::class, 'utama'])->name('utama');
-Route::get('/wse/it', [MainController::class, 'it'])->name('it');
-Route::get('/wse/projas', [MainController::class, 'projas'])->name('projas');
-Route::get('/wse/pc', [MainController::class, 'pc'])->name('pc');
-Route::get('/wse/robotik', [MainController::class, 'robotik'])->name('robotik');
-Route::get('/wse/struktur', [MainController::class, 'struktur'])->name('struktur');
+Route::group(['prefix' => 'wse'], function () {
+    Route::get('/it', [MainController::class, 'it'])->name('it');
+    Route::get('/projas', [MainController::class, 'projas'])->name('projas');
+    Route::get('/pc', [MainController::class, 'pc'])->name('pc');
+    Route::get('/robotik', [MainController::class, 'robotik'])->name('robotik');
+    Route::get('/struktur', [MainController::class, 'struktur'])->name('struktur');
+});
+
+Route::get('/signin', [AuthController::class, 'signin'])->name('signin');
