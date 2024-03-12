@@ -2,13 +2,22 @@
 
 namespace Database\Seeders;
 
+use App\Constant\DBTypes;
+use App\Helpers\Functions;
 use App\Models\User;
+use App\Services\TypeService;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
 class UserSeeder extends Seeder
 {
+    
+    function findType(String $code)
+    {
+        $service = new TypeService();
+        return $service->getIdWithCode($code);
+    }
     /**
      * Run the database seeds.
      */
@@ -19,13 +28,15 @@ class UserSeeder extends Seeder
                 'name'	=> 'Admin',
                 'username'	=> 'admin',
                 'email'	=> 'admin@gmail.com',
-                'password'	=> Hash::make('123')
+                'password'	=> Hash::make('123'),
+                'role' => $this->findType(DBTypes::RoleSuperAdmin),
             ],
             [
                 'name'	=> 'Novan',
                 'username'	=> 'novan',
                 'email'	=> 'novan@gmail.com',
-                'password'	=> Hash::make('123')
+                'password'	=> Hash::make('123'),
+                'role' => $this->findType(DBTypes::RoleAdmin),
             ],
         ]);
     }
