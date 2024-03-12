@@ -24,9 +24,10 @@ Route::group(['prefix' => 'wse'], function () {
     Route::get('/struktur', [MainController::class, 'struktur'])->name('struktur');
 });
 
-Route::get('/signin', [AuthController::class, 'signin'])->name('login');
-Route::post('/signin', [AuthController::class, 'signinAction'])->name('signinAction');
-
+Route::middleware('guest')->group(function (){
+    Route::get('/signin', [AuthController::class, 'signin'])->name('login');
+    Route::post('/signin', [AuthController::class, 'signinAction'])->name('signinAction');
+});
 Route::middleware('auth:web')->group(function (){
     Route::post('/signout', [AuthController::class, 'signout'])->name('signout');
 

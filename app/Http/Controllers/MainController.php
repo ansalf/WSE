@@ -38,6 +38,6 @@ class MainController extends Controller
 
     public function dashboard()
     {
-        return view('Admin.Layouts.master');
+        return view('Admin.Pages.dashboard');
     }
 }

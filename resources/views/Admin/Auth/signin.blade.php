@@ -154,7 +154,7 @@
                   "password": password,
                   "_token": token
               },
-              success:function(response){
+              success: function(response){
                   if (response.success) {
                     window.location.href = "{{ route('dashboard') }}";
                   } else {
