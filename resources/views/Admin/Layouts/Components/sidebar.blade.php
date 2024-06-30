@@ -13,12 +13,12 @@
       <ul class="sidebar-menu">
         <li class="{{ activeMenu('dashboard') }}"><a class="nav-link" href="{{ route('dashboard') }}"><i class="fas fa-fire"></i><span>Dashboard</span></a></li>
         <li class="menu-header">Masters</li>
-            <li class="dropdown">
+            <li class="{{ activeMenu('masters') }} dropdown">
               <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i> <span>Masters</span></a>
               <ul class="dropdown-menu">
                 <li><a class="nav-link" href="layout-default.html">News</a></li>
                 <li><a class="nav-link" href="layout-transparent.html">Demisioners</a></li>
-                <li><a class="nav-link" href="layout-top-navigation.html">Users</a></li>
+                <li class="{{ activeMenu('users') }}"><a class="nav-link" href="{{ route('users.index') }}">Users</a></li>
               </ul>
             </li>
       </ul>    

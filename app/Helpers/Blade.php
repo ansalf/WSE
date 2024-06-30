@@ -1,10 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Request;
-
 function activeMenu($uri = '') {
     $active = '';
-    if (Request::is(Request::segment(1) . '/' . $uri . '/*') || Request::is(Request::segment(1) . '/' . $uri) || Request::is($uri)) {
+    if (str_contains(url()->current(), $uri)) {
         $active = 'active';
     }
     return $active;

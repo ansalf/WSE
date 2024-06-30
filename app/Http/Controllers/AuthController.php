@@ -18,23 +18,16 @@ class AuthController extends Controller
 
         if (Auth::attempt(['username' => $username, 'password' => $password])) {
             Session::flash('success', 'Signin Success\n Anda berhasil Login');
-            return response()->json([
-                'success' => true
-            ], 200);
+            return redirect('/dashboard');
         }
         
         Session::flash('error', 'Signin Failed\n Anda gagal Login');
-        return response()->json([
-            'success' => false,
-            'message' => "Login Gagal"
-        ], 200);
+        return redirect('/signin');
     }
 
     public function signout() {
         Auth::logout();
         Session::flash('success', 'Signout Success\n Anda berhasil Logout');
-        return response()->json([
-            'success' => true
-        ], 200);
+        return redirect('/signin');
     }
 }

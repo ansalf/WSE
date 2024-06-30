@@ -2,7 +2,10 @@
 
 namespace Database\Factories;
 
+use App\Constant\DBTypes;
+use App\Services\TypeService;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 /**
@@ -10,6 +13,12 @@ use Illuminate\Support\Str;
  */
 class UserFactory extends Factory
 {
+    
+    function findType(String $code)
+    {
+        $service = new TypeService();
+        return $service->getIdWithCode($code);
+    }
     /**
      * Define the model's default state.
      *
@@ -18,11 +27,11 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
-            'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            'remember_token' => Str::random(10),
+            'name'	=> fake()->name(),
+            'username'	=> fake()->name(),
+            'email'	=> fake()->unique()->safeEmail(),
+            'password'	=> Hash::make('123'),
+            'role' => $this->findType(DBTypes::RoleAnggota),
         ];
     }
 

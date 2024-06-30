@@ -1,10 +1,10 @@
 <head>
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+    
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
     <title>@yield('title')</title>
-    <link rel="icon" href="{{ asset('main/icon.ico') }}">
-  
+    <link rel="icon" href="{{ asset('/main/icon.ico') }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Admin LTE -->
     <link rel="stylesheet" href="{{ asset('assets/modules/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}">
   
@@ -29,6 +29,19 @@
   </script>
   
   
-  
+
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <title>{{ config('app.name', 'Laravel') }}</title>
+
+    <!-- Scripts -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <!-- Fonts -->
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <!-- Styles -->
+    <link  href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">  
   <!-- /END GA -->
   </head>

@@ -168,5 +168,74 @@
         });
     });
 </script>
+
+
+<script>
+  var Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000
+  });
+
+  function setError(title) {
+    Toast.fire({
+      icon: 'error',
+      title: title
+    });
+  }
+
+  $(function() {
+    $('.swalDefaultInfo').click(function() {
+      Toast.fire({
+        icon: 'info',
+        title: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+      });
+    });
+    
+    $('.swalDefaultError').click(function() {
+      Toast.fire({
+        icon: 'error',
+        title: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+      });
+    });
+    
+    $('.swalDefaultWarning').click(function() {
+      Toast.fire({
+        icon: 'warning',
+        title: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+      });
+    });
+    
+    $('.swalDefaultQuestion').click(function() {
+      Toast.fire({
+        icon: 'question',
+        title: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+      });
+    });
+  });
+</script>
+
+@if (Session::has('success'))
+<script>
+  $(document).ready(function() {
+  Toast.fire({
+    icon: 'success',
+    title: "{{ Session::get('success') }}"
+  });
+  });
+</script>
+@endif
+
+@if (Session::has('error'))
+<script>
+  $(document).ready(function() {
+  Toast.fire({
+    icon: 'error',
+    title: "{{ Session::get('error') }}"
+  });
+  });
+</script>
+@endif
 </body>
 </html>

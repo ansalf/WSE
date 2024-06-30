@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,12 +25,16 @@ Route::group(['prefix' => 'wse'], function () {
     Route::get('/struktur', [MainController::class, 'struktur'])->name('struktur');
 });
 
-Route::middleware('guest')->group(function (){
-    Route::get('/signin', [AuthController::class, 'signin'])->name('login');
+Route::middleware('guest')->group(function () {
+    Route::get('/signin', [AuthController::class, 'signin'])->name('signin');
     Route::post('/signin', [AuthController::class, 'signinAction'])->name('signinAction');
 });
-Route::middleware('auth:web')->group(function (){
-    Route::post('/signout', [AuthController::class, 'signout'])->name('signout');
+Route::middleware('auth:web')->group(function () {
+    Route::get('/signout', [AuthController::class, 'signout'])->name('signout');
 
     Route::get('/dashboard', [MainController::class, 'dashboard'])->name('dashboard');
+
+    Route::group(['prefix' => 'masters'], function () {
+        Route::resource('users', UserController::class);
+    });
 });
