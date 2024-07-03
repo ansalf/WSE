@@ -48,10 +48,10 @@
                 <form method="POST" class="needs-validation" novalidate="">
                   @csrf
                   <div class="form-group">
-                    <label for="username">Username</label>
+                    <label for="username">Username or Email</label>
                     <input id="username" type="username" class="form-control" name="username" tabindex="1" required autofocus>
                     <div class="invalid-feedback">
-                      Please fill in your Username
+                      Please fill in your Username / Email
                     </div>
                   </div>
 

@@ -21,4 +21,9 @@ class Type extends Model
         'updated_by',
         'activations'
     ];
+
+    public function getIdByCode(string $code)
+    {
+        return $this->where('code', $code)->first()->id;
+    }
 }

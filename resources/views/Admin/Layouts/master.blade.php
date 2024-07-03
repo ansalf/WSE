@@ -32,6 +32,7 @@
   </div>
 
   @include('Admin.Layouts.Components.scripts')
+  @yield('content-modal')
 
 </body>
 </html>

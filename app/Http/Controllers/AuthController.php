@@ -19,6 +19,9 @@ class AuthController extends Controller
         if (Auth::attempt(['username' => $username, 'password' => $password])) {
             Session::flash('success', 'Signin Success\n Anda berhasil Login');
             return redirect('/dashboard');
+        }else if (Auth::attempt(['email' => $username, 'password' => $password])) {
+            Session::flash('success', 'Signin Success\n Anda berhasil Login');
+            return redirect('/dashboard');
         }
         
         Session::flash('error', 'Signin Failed\n Anda gagal Login');
