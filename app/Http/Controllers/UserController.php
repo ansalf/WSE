@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Constant\DBTypes;
+use App\Constant\Systems;
 use App\Models\Type;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -81,7 +83,6 @@ class UserController extends Controller
 
 
         $data = $this->user->create($create);
-
         return $this->success('Success Create New User', $data);
     }
 

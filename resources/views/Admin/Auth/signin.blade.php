@@ -155,14 +155,16 @@
                   "_token": token
               },
               success: function(response){
-                  if (response.success) {
+                console.log(response);
+                  if (response.message == 'success') {
                     window.location.href = "{{ route('dashboard') }}";
                   } else {
                     setError('Login Gagal')
                   }
               },
-              error:function(response){
-                setError('server error')
+              error: function(xhr, status, error) {
+                setError('server error');
+                console.log(xhr.responseText);
               }
           });
         });

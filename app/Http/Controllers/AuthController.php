@@ -2,35 +2,39 @@
 
 namespace App\Http\Controllers;
 
+use App\Constant\Systems;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
 class AuthController extends Controller
 {
-    public function signin() {
+    public function signin()
+    {
         return view('Admin.Auth.signin');
     }
 
-    public function signinAction(Request $request) {
+    public function signinAction(Request $request)
+    {
         $username = $request->username;
         $password = $request->password;
 
         if (Auth::attempt(['username' => $username, 'password' => $password])) {
-            Session::flash('success', 'Signin Success\n Anda berhasil Login');
-            return redirect('/dashboard');
-        }else if (Auth::attempt(['email' => $username, 'password' => $password])) {
-            Session::flash('success', 'Signin Success\n Anda berhasil Login');
-            return redirect('/dashboard');
+            Session::flash(Systems::sessionSuccess, 'Signin Success\n Anda berhasil Login');
+            return $this->success('success');
+        } else if (Auth::attempt(['email' => $username, 'password' => $password])) {
+            Session::flash(Systems::sessionSuccess, 'Signin Success\n Anda berhasil Login');
+            return $this->success('success');
         }
-        
-        Session::flash('error', 'Signin Failed\n Anda gagal Login');
-        return redirect('/signin');
+
+        Session::flash(Systems::sessionError, 'Signin Failed\n Anda gagal Login');
+        return $this->failed('failed');
     }
 
-    public function signout() {
+    public function signout()
+    {
         Auth::logout();
-        Session::flash('success', 'Signout Success\n Anda berhasil Logout');
+        Session::flash(Systems::sessionSuccess, 'Signout Success\n Anda berhasil Logout');
         return redirect('/signin');
     }
 }

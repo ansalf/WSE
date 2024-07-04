@@ -33,6 +33,13 @@
       timer: 3000
     });
   
+  function setSuccess(title) {
+    Toast.fire({
+      icon: 'success',
+      title: title
+    });
+  }
+
     function setError(title) {
       Toast.fire({
         icon: 'error',

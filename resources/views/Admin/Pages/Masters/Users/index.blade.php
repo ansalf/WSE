@@ -53,10 +53,7 @@
             .done((response) => {
                 console.log('AJAX success', response);
                 $('#modal-form').modal('hide');
-                Swal.fire({
-                    icon: 'success',
-                    title: response?.message ?? 'Berhasil!',
-                });
+                setSuccess(response?.message ?? 'Berhasil!')
                 table.ajax.reload();
             })
             .fail((xhr) => {
@@ -130,12 +127,7 @@
                           '_method': 'delete'
                       })
                       .done((response) => {
-                        console.log(response);
-                          Swal.fire(
-                            response?.message ?? 'Terhapus !',
-                            'Akun '+response.data.name +' terhapus.'?? 'Akun ini terhapus.',
-                            'success'
-                          )
+                          setSuccess(response?.message + '\n' +'Akun '+response.data.name +' terhapus.')
                           table.ajax.reload();
                       })
                       .fail((errors) => {
