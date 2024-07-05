@@ -20,6 +20,7 @@ class Menu extends Model
         'menunm',
         'menuroute',
         'menuseq',
+        'menuicon',
 
         'created_by',
         'updated_by',

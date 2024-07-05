@@ -15,7 +15,6 @@
         </a>
       </div>
       <ul class="sidebar-menu">        
-        <button class="btn btn-primary" onclick="console.log({{$menus}})">tekan</button>
         @foreach ($menus as $item)
         @php
             $hasParentViewFeature = false;
@@ -34,7 +33,7 @@
             }
         @endphp
         @if (count($item->children) == 0 && $hasParentViewFeature)
-            <li class="{{ activeMenu($item->menunm) }}"><a class="nav-link" href="{{ route($item->menuroute) }}"><i class="fas fa-fire"></i><span>{{$item->menunm}}</span></a></li>
+            <li class="{{ activeMenu($item->menunm) }}"><a class="nav-link" href="{{ route($item->menuroute) }}"><i class="{{$item->menuicon ?? 'fa fa-question'}}"></i><span>{{$item->menunm}}</span></a></li>
         @else
         @php
             $hasParentViewFeature = false;
@@ -55,7 +54,7 @@
         @if ($hasParentViewFeature)
         <li class="menu-header">{{$item->menunm}}</li>
         <li class="{{ activeMenu($item->menunm) }} dropdown">
-          <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i> <span>{{$item->menunm}}</span></a>
+          <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="{{$item->menuicon ?? 'fa fa-question'}}"></i> <span>{{$item->menunm}}</span></a>
           <ul class="dropdown-menu">
             @if (!empty($item->children) && count($item->children) > 0)
             @foreach ($item->children as $child)
@@ -78,7 +77,7 @@
             @if ($hasViewFeature)
                 <li class="{{ activeMenu($child->menunm) }}">
                     <a class="nav-link" href="{{ route($child->menuroute) }}">
-                        {{ $child->menunm }}
+                      <i class="{{$child->menuicon ?? 'fa fa-question'}}"></i> <span>{{$child->menunm}}</span>
                     </a>
                 </li>
             @endif

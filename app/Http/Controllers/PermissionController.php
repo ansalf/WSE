@@ -89,7 +89,7 @@ class PermissionController extends Controller
 
     public function index(Request $request)
     {
-        $roles = $this->type->where('master_id', $this->type->getIdByCode(DBTypes::UserRole))->get();
+        $roles = $this->type->whereNot('code', DBTypes::RoleSuperAdmin)->where('master_id', $this->type->getIdByCode(DBTypes::UserRole))->get();
         $menus = $this->menu->with(['features'])->get();
 
         if ($request->role) {
@@ -98,9 +98,9 @@ class PermissionController extends Controller
             $roleActiveId = $this->type->where('id', Crypt::decryptString($request->role))->first()->id;
         } else {
             $data = $this->permission->where('role', $this->type->where('master_id', $this->type->getIdByCode(DBTypes::UserRole))
-                ->first()->id)->get();
-            $roleActive = $this->type->where('master_id', $this->type->getIdByCode(DBTypes::UserRole))->first()->name;
-            $roleActiveId = $this->type->where('master_id', $this->type->getIdByCode(DBTypes::UserRole))->first()->id;
+                ->orderBy('id', 'desc')->first()->id)->get();
+            $roleActive = $this->type->where('master_id', $this->type->getIdByCode(DBTypes::UserRole))->orderBy('id', 'desc')->first()->name;
+            $roleActiveId = $this->type->where('master_id', $this->type->getIdByCode(DBTypes::UserRole))->orderBy('id', 'desc')->first()->id;
         }
 
         $features = $this->setFeatureSession(Routes::routeSettingPermission);

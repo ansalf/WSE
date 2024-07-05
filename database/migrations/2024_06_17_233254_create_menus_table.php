@@ -16,6 +16,7 @@ return new class extends Migration
             $table->bigInteger('masterid')->nullable();
             $table->string('menunm');
             $table->string('menuroute')->nullable();
+            $table->string('menuicon')->nullable();
             $table->integer('menuseq')->nullable();
 
             $table->bigInteger('created_by')->nullable();

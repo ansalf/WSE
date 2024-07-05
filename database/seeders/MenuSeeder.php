@@ -15,6 +15,7 @@ class MenuSeeder extends Seeder
         [
             'menuroute' => Routes::routeAdminDashboard,
             'menunm' => 'Dashboard',
+            'menuicon' => 'fas fa-fire',
             'features' => [
                 [
                     'feattitle' => 'View',
@@ -24,6 +25,7 @@ class MenuSeeder extends Seeder
         ],
         [
             'menunm' => 'Masters',
+            'menuicon' => 'fa fa-folder',
             'features' => [
                 [
                     'feattitle' => 'View',
@@ -34,6 +36,7 @@ class MenuSeeder extends Seeder
                 [
                     'menuroute' => Routes::routeMasterUsers,
                     'menunm' => 'Master Users',
+                    'menuicon' => 'fa fa-users',
                     'features' => [
                         [
                             'feattitle' => 'View',
@@ -57,6 +60,7 @@ class MenuSeeder extends Seeder
         ],
         [
             'menunm' => 'Settings',
+            'menuicon' => 'fas fa-bars',
             'features' => [
                 [
                     'feattitle' => 'View',
@@ -67,6 +71,7 @@ class MenuSeeder extends Seeder
                 [
                     'menuroute' => Routes::routeSettingPermission,
                     'menunm' => 'Permission',
+                    'menuicon' => 'fa fa-key',
                     'features' => [
                         [
                             'feattitle' => 'View',
