@@ -2,10 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Constant\Systems;
+use App\Models\Menu;
+use App\Models\Permission;
+use Illuminate\Contracts\Session\Session;
+use Illuminate\Support\Facades\Auth;
 
 class MainController extends Controller
 {
+    protected $menu, $permission;
+    public function __construct(Menu $menu, Permission $permission)
+    {
+        $this->permission = $permission;
+        $this->menu = $menu;
+    }
+
     public function utama()
     {
         return view('index');
@@ -38,6 +49,8 @@ class MainController extends Controller
 
     public function dashboard()
     {
+        $this->setMenuSession();
+
         return view('Admin.Pages.dashboard');
     }
 }

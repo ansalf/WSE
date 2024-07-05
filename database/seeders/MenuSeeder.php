@@ -14,7 +14,7 @@ class MenuSeeder extends Seeder
     protected $types = [
         [
             'menuroute' => Routes::routeAdminDashboard,
-            'menunm' => 'Dashboard Admin',
+            'menunm' => 'Dashboard',
             'features' => [
                 [
                     'feattitle' => 'View',
@@ -65,8 +65,8 @@ class MenuSeeder extends Seeder
             ],
             'children' => [
                 [
-                    'menuroute' => Routes::routeMasterUsers,
-                    'menunm' => 'Master Users',
+                    'menuroute' => Routes::routeSettingPermission,
+                    'menunm' => 'Permission',
                     'features' => [
                         [
                             'feattitle' => 'View',
@@ -75,14 +75,6 @@ class MenuSeeder extends Seeder
                         [
                             'feattitle' => 'Add',
                             'featslug' => 'add',
-                        ],
-                        [
-                            'feattitle' => 'Edit',
-                            'featslug' => 'edit',
-                        ],
-                        [
-                            'feattitle' => 'Delete',
-                            'featslug' => 'delete',
                         ],
                     ]
                 ]

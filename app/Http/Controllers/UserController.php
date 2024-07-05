@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Constant\DBTypes;
+use App\Constant\Routes;
 use App\Constant\Systems;
+use App\Models\Menu;
 use App\Models\Type;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
@@ -14,12 +17,13 @@ use Yajra\DataTables\Facades\DataTables;
 
 class UserController extends Controller
 {
-    protected $user, $type;
+    protected $user, $type, $menu;
 
-    public function __construct(User $user, Type $type)
+    public function __construct(User $user, Type $type, Menu $menu)
     {
         $this->user = $user;
         $this->type = $type;
+        $this->menu = $menu;
     }
 
     /**
@@ -42,8 +46,10 @@ class UserController extends Controller
                 ->make(true);
         }
 
+        $features = $this->setFeatureSession(Routes::routeMasterUsers);
+
         $roles = $this->type->where('master_id', $this->type->getIdByCode(DBTypes::UserRole))->get();
-        return view('Admin.Pages.Masters.Users.index', compact('roles'));
+        return view('Admin.Pages.Masters.Users.index', compact('roles', 'features'));
     }
 
     /**

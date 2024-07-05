@@ -1,3 +1,7 @@
+<?php 
+  $menus = session()->get('menus');
+?>
+
 <div class="main-sidebar sidebar-style-2">
     <aside id="sidebar-wrapper">
       <div class="sidebar-brand">
@@ -10,17 +14,47 @@
             <img class="img-circle" width="50" src="{{ asset('main/icon.ico') }}" alt="Logo WSE">
         </a>
       </div>
-      <ul class="sidebar-menu">
-        <li class="{{ activeMenu('dashboard') }}"><a class="nav-link" href="{{ route('dashboard') }}"><i class="fas fa-fire"></i><span>Dashboard</span></a></li>
-        <li class="menu-header">Masters</li>
-            <li class="{{ activeMenu('masters') }} dropdown">
-              <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i> <span>Masters</span></a>
+      <ul class="sidebar-menu">        
+        <button class="btn btn-primary" onclick="console.log({{$menus}})">tekan</button>
+        @foreach ($menus as $item)
+        @if (count($item->children) == 0)
+            <li class="{{ activeMenu($item->menunm) }}"><a class="nav-link" href="{{ route($item->menuroute) }}"><i class="fas fa-fire"></i><span>{{$item->menunm}}</span></a></li>
+        @else
+        <li class="menu-header">{{$item->menunm}}</li>
+            <li class="{{ activeMenu($item->menunm) }} dropdown">
+              <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i> <span>{{$item->menunm}}</span></a>
               <ul class="dropdown-menu">
-                <li><a class="nav-link" href="layout-default.html">News</a></li>
-                <li><a class="nav-link" href="layout-transparent.html">Demisioners</a></li>
-                <li class="{{ activeMenu('users') }}"><a class="nav-link" href="{{ route('users.index') }}">Users</a></li>
+                @if (!empty($item->children) && count($item->children) > 0)
+                @foreach ($item->children as $child)
+                @php
+                    $hasViewFeature = false;
+                    // Periksa jika `features` adalah array dan cari `featslug` dengan nilai 'view'
+                    if (count($child->features) > 0) {
+                        foreach ($child->features as $feature) {
+                            if ($feature['featslug'] == 'view') {
+                              foreach ($feature->permissions as $permission) {
+                                if ($permission->permisfeatid == $feature->id) {
+                                  $hasViewFeature = $permission->hasaccess;
+                                  break;
+                                }
+                              }
+                            }
+                        }
+                    }
+                @endphp
+                @if ($hasViewFeature)
+                    <li class="{{ activeMenu($child->menunm) }}">
+                        <a class="nav-link" href="{{ route($child->menuroute) }}">
+                            {{ $child->menunm }}
+                        </a>
+                    </li>
+                @endif
+            @endforeach
+                @endif
               </ul>
             </li>
+        @endif
+        @endforeach
       </ul>    
     </aside>
   </div>

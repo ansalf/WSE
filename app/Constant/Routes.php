@@ -6,5 +6,7 @@ class Routes
 {
     const routeAdminDashboard = 'dashboard';
 
-    const routeMasterUsers = 'dashboard';
+    const routeMasterUsers = 'users.index';
+    
+    const routeSettingPermission = 'permissions.index';
 }

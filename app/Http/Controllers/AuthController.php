@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Session;
 
 class AuthController extends Controller
 {
+
     public function signin()
     {
         return view('Admin.Auth.signin');

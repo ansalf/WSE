@@ -1,26 +1,70 @@
 <?php
 
-namespace App\Http\Controllers\Masters;
+namespace App\Http\Controllers;
 
+use App\Constant\DBTypes;
+use App\Constant\Routes;
+use App\Constant\Systems;
 use App\Http\Controllers\Controller;
 use App\Models\Menu;
 use App\Models\Permission;
+use App\Models\Type;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Validator;
 
 class PermissionController extends Controller
 {
-    protected $permission, $menu;
+    protected $permission, $menu, $type;
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct(Permission $permission, Menu $menu)
+    public function __construct(Permission $permission, Menu $menu, Type $type)
     {
         $this->permission = $permission;
         $this->menu = $menu;
+        $this->type = $type;
+    }
+
+    public function togglePermission(Request $request)
+    {
+        $request->validate([
+            'role' => 'required|string',
+            'feature' => 'required|integer',
+            'is_checked' => 'required'
+        ]);
+
+        try {
+            $roleId = $request->input('role');
+            $featureId = $request->input('feature');
+            $isChecked = $request->input('is_checked') == 'true' ? true : false;
+
+            if ($isChecked) {
+                // Add permission
+                Permission::firstOrCreate([
+                    'role' => $roleId,
+                    'permisfeatid' => $featureId,
+                ]);
+                $status = 'Permission added.';
+            } else {
+                // Remove permission
+                Permission::where('role', $roleId)
+                    ->where('permisfeatid', $featureId)
+                    ->delete();
+                $status = 'Permission removed.';
+            }
+
+            $this->setMenuSession();
+
+            return response()->json(['message' => $status, 'success' => true]);
+        } catch (\Illuminate\Contracts\Encryption\DecryptException $e) {
+            return response()->json(['message' => 'Invalid role parameter.', 'success' => false], 400);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'An error occurred.', 'success' => false], 500);
+        }
     }
 
     public function deletePermission(Request $request)
@@ -37,16 +81,31 @@ class PermissionController extends Controller
 
     public function getMyPermission()
     {
-        $data = $this->permission->where('role', Auth::user()->role)->with(['feature'=>function ($query) {
+        $data = $this->permission->where('role', Auth::user()->role)->with(['feature' => function ($query) {
             $query->with(['menu']);
         }])->get();
         return $this->success('Success Show Permission', $data);
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $data = $this->permission->all();
-        return $this->success('Success Show All Permission', $data);
+        $roles = $this->type->where('master_id', $this->type->getIdByCode(DBTypes::UserRole))->get();
+        $menus = $this->menu->with(['features'])->get();
+
+        if ($request->role) {
+            $data = $this->permission->where('role', Crypt::decryptString($request->role))->get();
+            $roleActive = $this->type->where('id', Crypt::decryptString($request->role))->first()->name;
+            $roleActiveId = $this->type->where('id', Crypt::decryptString($request->role))->first()->id;
+        } else {
+            $data = $this->permission->where('role', $this->type->where('master_id', $this->type->getIdByCode(DBTypes::UserRole))
+                ->first()->id)->get();
+            $roleActive = $this->type->where('master_id', $this->type->getIdByCode(DBTypes::UserRole))->first()->name;
+            $roleActiveId = $this->type->where('master_id', $this->type->getIdByCode(DBTypes::UserRole))->first()->id;
+        }
+
+        $features = $this->setFeatureSession(Routes::routeSettingPermission);
+
+        return view('Admin.Pages.Settings.permission', compact('roles', 'roleActive', 'data', 'menus', 'roleActiveId', 'features'));
     }
 
     public function store(Request $request)

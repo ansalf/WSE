@@ -4,6 +4,45 @@
 
 @section('content-header')
     <h1>Master Users</h1>
+    @php
+    $hasAddFeature = false;
+    $hasEditFeature = false;
+    $hasDeleteFeature = false;
+    if (count($features->features) > 0) {
+        foreach ($features->features as $feature) {
+            if ($feature['featslug'] == 'add') {
+              foreach ($feature->permissions as $permission) {
+                if ($permission->permisfeatid == $feature->id) {
+                  $hasAddFeature = $permission->hasaccess;
+                  break;
+                }
+              }
+            }
+        }
+        
+        foreach ($features->features as $feature) {
+            if ($feature['featslug'] == 'edit') {
+              foreach ($feature->permissions as $permission) {
+                if ($permission->permisfeatid == $feature->id) {
+                  $hasEditFeature = $permission->hasaccess;
+                  break;
+                }
+              }
+            }
+        }
+
+        foreach ($features->features as $feature) {
+            if ($feature['featslug'] == 'delete') {
+              foreach ($feature->permissions as $permission) {
+                if ($permission->permisfeatid == $feature->id) {
+                  $hasDeleteFeature = $permission->hasaccess;
+                  break;
+                }
+              }
+            }
+        }
+    }
+    @endphp
 @endsection
 
 @section('content-body')
@@ -47,8 +86,6 @@
     $(document).ready(function () {
     $(document).on('submit', '#modal-form form', function (e) {
         e.preventDefault();
-        console.log('Form method:', $(this).attr('_method'));
-        console.log('Form action:', $(this).attr('action'));
         $.post($(this).attr('action'), $(this).serialize())
             .done((response) => {
                 console.log('AJAX success', response);
@@ -57,7 +94,6 @@
                 table.ajax.reload();
             })
             .fail((xhr) => {
-                console.log('AJAX error', xhr);
                 let message = 'Tidak dapat menyimpan data';
                 if (xhr.status === 400 || xhr.status === 403) {
                     let responseJSON = xhr.responseJSON || {};
@@ -75,6 +111,16 @@
 });
 
     function addForm(url) {
+      const hasAddFeature = {{ isset($hasAddFeature) ? json_encode($hasAddFeature) : 'null' }};
+      const letItGo = !hasAddFeature;
+        if (letItGo) {
+          Swal.fire({
+            title: 'Tidak Memiliki Akses',
+            text: "Anda tidak memiliki akses untuk menambahkan data",
+            icon: 'error',
+          })
+          return
+        }
         $('#modal-form').modal('show');
         $('#modal-form .modal-title').text('Tambah User');
 
@@ -86,7 +132,17 @@
         $('#password, #password_confirmation').attr('required', true);
     }
 
-    function editForm(url) {
+    function editForm(url) {  
+      const hasEditFeature = {{ isset($hasEditFeature) ? json_encode($hasEditFeature) : 'null' }};
+      const letItGo = !hasEditFeature;
+        if (letItGo) {
+          Swal.fire({
+            title: 'Tidak Memiliki Akses',
+            text: "Anda tidak memiliki akses untuk mengubah data",
+            icon: 'error',
+          })
+          return
+        }
         $('#modal-form').modal('show');
         $('#modal-form .modal-title').text('Edit User');
 
@@ -111,6 +167,16 @@
     }
 
     function deleteData(url) {
+      const hasDeleteFeature = {{ isset($hasDeleteFeature) ? json_encode($hasDeleteFeature) : 'null' }};
+      const letItGo = !hasDeleteFeature;
+        if (letItGo) {
+          Swal.fire({
+            title: 'Tidak Memiliki Akses',
+            text: "Anda tidak memiliki akses untuk menghapus data",
+            icon: 'error',
+          })
+          return
+        }
       Swal.fire({
         title: 'Apakah Anda Yakin ?',
         text: "Anda tidak akan dapat mengembalikan ini !",

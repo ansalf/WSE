@@ -2,13 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Constant\Routes;
+use App\Constant\Systems;
+use App\Models\Menu;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Support\Facades\Auth;
 
 class Controller extends BaseController
 {
     use AuthorizesRequests, ValidatesRequests;
+
     public function success($message = 'Success', $data = null, $code = 200)
     {
         if ($data == null)
@@ -28,5 +33,41 @@ class Controller extends BaseController
     public function notFound($message = 'Data Not Found!')
     {
         return response()->json(['message' => $message], 404);
+    }
+
+    public function setMenuSession()
+    {
+        $menu = new Menu();
+        $menus = $menu->where('masterid', null)->with([
+            'features' => function ($query) {
+                $query->where('featslug', 'view')->whereHas('permissions', function ($query) {
+                    $query->where('role', Auth::user()->role);
+                });
+            },
+            'children' =>
+            function ($query) {
+                $query->with(['features' => function ($query) {
+                    $query->where('featslug', 'view')->whereHas(
+                        'permissions',
+                        function ($query) {
+                            $query->where('role', Auth::user()->role);
+                        }
+                    );
+                }]);
+            },
+        ])->get();
+
+        session()->put(Systems::sessionMenus, $menus);
+    }
+
+    public function setFeatureSession(string $route)
+    {
+        $menu = new Menu();
+        return $menu->where('menuroute', $route)
+            ->with(['features' => function ($query) {
+                $query->whereNot('featslug', 'view')->with(['permissions'])->whereHas('permissions', function ($query) {
+                    $query->where('role', Auth::user()->role);
+                });
+            }])->first();
     }
 }
