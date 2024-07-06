@@ -44,12 +44,12 @@
         <?php $i=0; ?>
       @foreach ($menus as $item)
         <?php $i++; ?>
-          <div class="col-lg-12 py-3 row {{$i % 2 == 0 ? 'text-white' : ''}}" style="background-color: {{$i % 2 == 0 ? '#1089ff' : 'transparent'}}">
-            <div class="col-lg-4">
+          <div class="col-12 py-3 row {{$i % 2 == 0 ? 'text-white' : ''}}" style="background-color: {{$i % 2 == 0 ? '#1089ff' : 'transparent'}}">
+            <div class="col-4">
                 {{$item->menunm}}
               </div>
               @foreach ($item->features as $feature)
-                <div class="col-lg-2">
+                <div class="col-2">
                     {{ $feature->feattitle }}
                     @php
                         $isChecked = false;
