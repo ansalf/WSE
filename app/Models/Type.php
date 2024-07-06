@@ -26,4 +26,12 @@ class Type extends Model
     {
         return $this->where('code', $code)->first()->id;
     }
+
+    public function children() {
+        return $this->hasMany(Type::class, 'master_id');
+    }
+
+    public function parent() {
+        return $this->belongsTo(Type::class, 'master_id');
+    }
 }

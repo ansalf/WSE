@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\TypeController;
 use App\Http\Controllers\UserController;
 
 /*
@@ -41,5 +42,7 @@ Route::middleware('auth:web')->group(function () {
     Route::group(['prefix' => 'settings'], function () {
         Route::resource('permissions', PermissionController::class);
         Route::post('permissions/toggle', [PermissionController::class, 'togglePermission'])->name('permission.toggle');
+        
+        Route::resource('types', TypeController::class);
     });
 });

@@ -37,7 +37,7 @@ class UserController extends Controller
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
                     $btn = '
-                        <btn onclick="editForm(`' . route('users.update', $row->id) . '`)" class="btn btn-warning btn-sm"><i class="fa fa-pen"></i></btn>
+                        <btn onclick="editForm(`' . route('users.update', $row->id) . '`)" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></btn>
                         <btn onclick="deleteData(`' . route('users.destroy', $row->id) . '`)" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></btn>
                     ';
                     return $btn;

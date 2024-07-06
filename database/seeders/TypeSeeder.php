@@ -16,10 +16,12 @@ class TypeSeeder extends Seeder
             'children' => [
                 [
                     'name' => 'Super Admin',
+                    'desc' => 'important',
                     'code' => DBTypes::RoleSuperAdmin
                 ],
                 [
                     'name' => 'Admin',
+                    'desc' => 'important',
                     'code' => DBTypes::RoleAdmin
                 ],
                 [
