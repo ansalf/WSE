@@ -19,7 +19,5 @@ class DatabaseSeeder extends Seeder
         $this->call(UserSeeder::class);
         $this->call(MenuSeeder::class);
         $this->call(PermissionSeeder::class);
-        
-        User::factory()->count(100)->create();
     }
 }
