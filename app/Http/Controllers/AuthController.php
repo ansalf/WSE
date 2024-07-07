@@ -20,10 +20,7 @@ class AuthController extends Controller
         $username = $request->username;
         $password = $request->password;
 
-        if (Auth::attempt(['username' => $username, 'password' => $password])) {
-            Session::flash(Systems::sessionSuccess, 'Signin Success\n Anda berhasil Login');
-            return $this->success('success');
-        } else if (Auth::attempt(['email' => $username, 'password' => $password])) {
+        if (Auth::attempt(['username' => $username, 'password' => $password]) || Auth::attempt(['email' => $username, 'password' => $password])) {
             Session::flash(Systems::sessionSuccess, 'Signin Success\n Anda berhasil Login');
             return $this->success('success');
         }

@@ -48,8 +48,7 @@
                         <label for="password" class="col-lg-3 col-lg-offset-1 control-label">Password</label>
                         <div class="col-lg-9">
                             <input type="password" name="password" id="password" class="form-control" 
-                            required
-                            minlength="6">
+                            required>
                             <span class="help-block with-errors"></span>
                         </div>
                     </div>

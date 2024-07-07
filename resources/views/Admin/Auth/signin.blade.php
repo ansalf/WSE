@@ -164,7 +164,7 @@
               },
               error: function(xhr, status, error) {
                 setError('server error');
-                console.log(xhr.responseText);
+                console.log(xhr);
               }
           });
         });

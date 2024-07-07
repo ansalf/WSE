@@ -36,17 +36,17 @@ class UserController extends Controller
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
-                   if ($row->id == 1) {
-                    $btn = '
+                    if ($row->id == 1) {
+                        $btn = '
                     <btn onclick="editForm(`' . route('users.update', $row->id) . '`)" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></btn>
                 ';
-                   } else {
-                    $btn = '
+                    } else {
+                        $btn = '
                     <btn onclick="editForm(`' . route('users.update', $row->id) . '`)" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></btn>
                     <btn onclick="deleteData(`' . route('users.destroy', $row->id) . '`)" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></btn>
                 ';
-                   }
-                   
+                    }
+
                     return $btn;
                 })
                 ->rawColumns(['action'])
@@ -140,9 +140,12 @@ class UserController extends Controller
             ->filter()
             ->put('updated_by', $request->session()->get('id'));
 
-        if ($request->has('password'))
+        if ($request->has('password')) {
+            if ($request->password != $request->confirm_password)
+                return $this->failed('Invalid confirmation password', null, 403);
             $update
-                ->put('password', Hash::make('password'));
+                ->put('password', Hash::make($request->password));
+        }
 
         $data->update($update->toArray());
         return $this->success('Success Update User', $data);
