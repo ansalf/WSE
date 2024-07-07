@@ -55,8 +55,9 @@ class UserController extends Controller
 
         $features = $this->setFeatureSession(Routes::routeMasterUsers);
 
+        $genders = $this->type->where('master_id', $this->type->getIdByCode(DBTypes::UserGender))->get();
         $roles = $this->type->where('master_id', $this->type->getIdByCode(DBTypes::UserRole))->get();
-        return view('Admin.Pages.Masters.Users.index', compact('roles', 'features'));
+        return view('Admin.Pages.Masters.Users.index', compact('roles', 'genders', 'features'));
     }
 
     /**
@@ -77,7 +78,7 @@ class UserController extends Controller
             'name' => 'required',
             'username' => 'required|unique:users,username',
             'email' => 'required|unique:users,email|email',
-            'password' => 'required|min:8',
+            'password' => 'required',
             'confirm_password' => 'required'
         ]);
 
@@ -104,7 +105,7 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        $data = $this->user->with(['role'])->find($id);
+        $data = $this->user->with(['role', 'gender'])->find($id);
         if (!$data)
             return $this->notFound();
         return $this->success('Success Show User', $data);

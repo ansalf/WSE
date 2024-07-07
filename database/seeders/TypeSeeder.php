@@ -26,7 +26,50 @@ class TypeSeeder extends Seeder
                 ],
                 [
                     'name' => 'Anggota',
+                    'desc' => 'important',
                     'code' => DBTypes::RoleAnggota
+                ]
+            ]
+        ],
+        [
+            'code' => DBTypes::UserGender,
+            'name' => 'User Gender',
+            'children' => [
+                [
+                    'name' => 'Laki - Laki',
+                    'desc' => 'important',
+                    'code' => DBTypes::UserGenderM
+                ],
+                [
+                    'name' => 'Perempuan',
+                    'desc' => 'important',
+                    'code' => DBTypes::UserGenderF
+                ]
+            ]
+        ],
+        [
+            'code' => DBTypes::FileTypes,
+            'name' => 'File Type',
+            'children' => [
+                [
+                    'name' => 'Type Picture',
+                    'desc' => 'important',
+                    'code' => DBTypes::FileTypePic
+                ],
+                [
+                    'name' => 'Profile Picture',
+                    'desc' => 'important',
+                    'code' => DBTypes::FileProfilePic
+                ],
+                [
+                    'name' => 'Demisioner Picture',
+                    'desc' => 'important',
+                    'code' => DBTypes::FileDemisPic
+                ],
+                [
+                    'name' => 'News Thumbnail',
+                    'desc' => 'important',
+                    'code' => DBTypes::FileNewsThumb
                 ]
             ]
         ]

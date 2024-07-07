@@ -157,6 +157,7 @@
             .done((response) => {
                 $('#modal-form [name=role]').val(response?.data?.role?.id ?? '');
                 $('#modal-form [name=name]').val(response?.data?.name ?? '');
+                $('#modal-form [name=gender]').val(response?.data?.gender?.id ?? '');
                 $('#modal-form [name=username]').val(response?.data?.username ?? '');
                 $('#modal-form [name=email]').val(response?.data?.email ?? '');
             })

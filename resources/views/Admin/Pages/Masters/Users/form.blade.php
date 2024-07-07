@@ -31,6 +31,18 @@
                         </div>
                     </div>
                     <div class="form-group row">
+                        <label for="gender" class="col-lg-3 col-lg-offset-1 control-label">Gender</label>
+                        <div class="col-lg-9">
+                            <select name="gender" id="gender" class="form-control" required>
+                                <option value="">Pilih Gender</option>
+                                @foreach ($genders as $key => $gender)
+                                <option value="{{ $gender->id }}">{{ $gender->name }}</option>
+                                @endforeach
+                            </select>
+                            <span class="help-block with-errors"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
                         <label for="username" class="col-lg-3 col-lg-offset-1 control-label">Username</label>
                         <div class="col-lg-9">
                             <input type="text" name="username" id="username" class="form-control" required autofocus>

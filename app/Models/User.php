@@ -23,6 +23,7 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
+        'gender',
     ];
 
     /**
@@ -47,5 +48,10 @@ class User extends Authenticatable
     public function role()
     {
         return $this->belongsTo(Type::class, 'role');
+    }
+
+    public function gender()
+    {
+        return $this->belongsTo(Type::class, 'gender');
     }
 }

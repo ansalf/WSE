@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Constant\Routes;
 use App\Constant\Systems;
+use App\Models\File;
 use App\Models\Menu;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -69,5 +70,45 @@ class Controller extends BaseController
                     $query->where('role', Auth::user()->role);
                 });
             }])->first();
+    }
+
+    public function uploadFile($file, $type, $refid, $filename, $directory, $creatorid = null)
+    {
+        $filesService = new File();
+        if ($creatorid) {
+
+            $oldFile = $filesService->where('refid', $refid)->where('transtypeid', $type)->first();
+            unlink(storage_path("app/public/$directory/" . $oldFile->filename));
+            $oldFile->delete();
+
+            $result = $file->storeAs($directory, $filename, 'public');
+            if ($result) {
+                $data = [];
+
+                $data['transtypeid'] = $type;
+                $data['refid'] = $refid;
+                $data['directories'] = $directory;
+                $data['filename'] = $filename;
+                $data['mimetype'] = $file->getMimeType();
+                $data['filesize'] = $file->getSize();
+                $data['created_by'] = $creatorid;
+                $data['updated_by'] = auth()->user()->id;
+                $filesService->create($data);
+            }
+        } else {
+            $result = $file->storeAs($directory, $filename, 'public');
+            if ($result) {
+                $data = [];
+                
+                $data['transtypeid'] = $type;
+                $data['refid'] = $refid;
+                $data['directories'] = $directory;
+                $data['filename'] = $filename;
+                $data['mimetype'] = $file->getMimeType();
+                $data['filesize'] = $file->getSize();
+                $data['created_by'] = auth()->user()->id;
+                $filesService->create($data);
+            }
+        }
     }
 }

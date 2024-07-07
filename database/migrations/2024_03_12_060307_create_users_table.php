@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->foreignId('role');
+            $table->foreignId('gender');
 
             $table->foreignId('created_by')->nullable();
             $table->foreignId('updated_by')->nullable();
@@ -29,6 +30,7 @@ return new class extends Migration
             $table->boolean('activations')->default(true);
 
             $table->foreign('role')->references($type->getKeyName())->on($type->getTable())->onDelete('cascade');
+            $table->foreign('gender')->references($type->getKeyName())->on($type->getTable())->onDelete('cascade');
             $table->foreign('created_by')->references($user->getKeyName())->on($user->getTable())->onDelete('cascade');
             $table->foreign('updated_by')->references($user->getKeyName())->on($user->getTable())->onDelete('cascade');
         });
