@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\Hash;
 
 class UserSeeder extends Seeder
 {
-    
     function findType(String $code)
     {
         $service = new TypeService();

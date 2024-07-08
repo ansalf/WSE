@@ -81,7 +81,7 @@ class Controller extends BaseController
             unlink(storage_path("app/public/$directory/" . $oldFile->filename));
             $oldFile->delete();
 
-            $result = $file->storeAs($directory, $filename, 'public');
+            $result = $file->storeAs('public/'.$directory, $filename);
             if ($result) {
                 $data = [];
 
@@ -96,7 +96,7 @@ class Controller extends BaseController
                 $filesService->create($data);
             }
         } else {
-            $result = $file->storeAs($directory, $filename, 'public');
+            $result = $file->storeAs('public/'.$directory, $filename);
             if ($result) {
                 $data = [];
                 

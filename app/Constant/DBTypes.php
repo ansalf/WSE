@@ -18,4 +18,15 @@ class DBTypes
     const FileDemisPic = 'fileDemisPic';
     const FileProfilePic = 'fileProfPic';
     const FileNewsThumb = 'fileNewsThumb';
+
+    const NewsCategory = 'newsCategory';
+    const NewsCategoryIT = 'newsIT';
+    const NewsCategoryPC = 'newsPC';
+    const NewsCategoryRo = 'newsRo';
+    const NewsCategoryPr = 'newsPr';
+
+    const NewsStatus = 'newsStatus';
+    const NewsDraft = 'draft';
+    const NewsPublished = 'published';
+    const NewsArchived = 'archived';
 }

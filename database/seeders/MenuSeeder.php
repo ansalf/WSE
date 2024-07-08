@@ -55,6 +55,29 @@ class MenuSeeder extends Seeder
                             'featslug' => 'delete',
                         ],
                     ]
+                ],
+                [
+                    'menuroute' => Routes::routeMasterNews,
+                    'menunm' => 'Master News',
+                    'menuicon' => 'fa fa-newspaper',
+                    'features' => [
+                        [
+                            'feattitle' => 'View',
+                            'featslug' => 'view',
+                        ],
+                        [
+                            'feattitle' => 'Add',
+                            'featslug' => 'add',
+                        ],
+                        [
+                            'feattitle' => 'Edit',
+                            'featslug' => 'edit',
+                        ],
+                        [
+                            'feattitle' => 'Delete',
+                            'featslug' => 'delete',
+                        ],
+                    ]
                 ]
             ]
         ],

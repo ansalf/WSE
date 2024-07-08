@@ -2,10 +2,13 @@
 
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\MainController;
-use App\Http\Controllers\PermissionController;
-use App\Http\Controllers\TypeController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\{
+    MainController,
+    NewsController,
+    PermissionController,
+    TypeController,
+    UserController,
+};
 
 /*
 |--------------------------------------------------------------------------
@@ -38,6 +41,7 @@ Route::middleware('auth:web')->group(function () {
 
     Route::group(['prefix' => 'masters'], function () {
         Route::resource('users', UserController::class);
+        Route::resource('news', NewsController::class);
     });
     Route::group(['prefix' => 'settings'], function () {
         Route::resource('permissions', PermissionController::class);

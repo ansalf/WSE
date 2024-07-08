@@ -7,6 +7,7 @@ class Routes
     const routeAdminDashboard = 'dashboard';
 
     const routeMasterUsers = 'users.index';
+    const routeMasterNews = 'news.index';
 
     const routeSettingPermission = 'permissions.index';
 

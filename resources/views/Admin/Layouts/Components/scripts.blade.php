@@ -8,7 +8,8 @@
   <script src="{{ asset('assets/modules/nicescroll/jquery.nicescroll.min.js') }}"></script>
   <script src="{{ asset('assets/modules/moment.min.js') }}"></script>
   <script src="{{ asset('assets/js/stisla.js') }}"></script>
-  <script src = "{{ asset('assets/modules/datatables/jquery.dataTables.min.js') }}" defer ></script>
+  <script src="{{ asset('assets/modules/datatables/jquery.dataTables.min.js') }}" defer ></script>
+  <script src="{{ asset('assets/modules/summernote/summernote-bs4.min.js') }}"></script>
   
   <!-- JS Libraies -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>

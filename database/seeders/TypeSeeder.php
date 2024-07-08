@@ -72,7 +72,50 @@ class TypeSeeder extends Seeder
                     'code' => DBTypes::FileNewsThumb
                 ]
             ]
-        ]
+        ],
+        [
+            'code' => DBTypes::NewsCategory,
+            'name' => 'Kategory Berita',
+            'children' => [
+                [
+                    'name' => 'Information Technology',
+                    'code' => DBTypes::NewsCategoryIT
+                ],
+                [
+                    'name' => 'Robotik',
+                    'code' => DBTypes::NewsCategoryRo
+                ],
+                [
+                    'name' => 'Power Control',
+                    'code' => DBTypes::NewsCategoryPC
+                ],
+                [
+                    'name' => 'Produk & Jasa',
+                    'code' => DBTypes::NewsCategoryPr
+                ],
+            ]
+        ],
+        [
+            'code' => DBTypes::NewsStatus,
+            'name' => 'Status Berita',
+            'children' => [
+                [
+                    'name' => 'Draft',
+                    'desc' => 'important',
+                    'code' => DBTypes::NewsDraft
+                ],
+                [
+                    'name' => 'Diunggah',
+                    'desc' => 'important',
+                    'code' => DBTypes::NewsPublished
+                ],
+                [
+                    'name' => 'Disimpan',
+                    'desc' => 'important',
+                    'code' => DBTypes::NewsArchived
+                ],
+            ]
+        ],
     ];
     /**
      * Run the database seeds.
