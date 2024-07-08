@@ -45,7 +45,7 @@
       @foreach ($menus as $item)
         <?php $i++; ?>
           <div class="col-12 py-3 row {{$i % 2 == 0 ? 'text-white' : ''}}" style="background-color: {{$i % 2 == 0 ? '#1089ff' : 'transparent'}}">
-            <div class="col-4">
+            <div class="col-2">
                 {{$item->menunm}}
               </div>
               @foreach ($item->features as $feature)

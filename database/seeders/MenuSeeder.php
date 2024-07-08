@@ -77,6 +77,10 @@ class MenuSeeder extends Seeder
                             'feattitle' => 'Delete',
                             'featslug' => 'delete',
                         ],
+                        [
+                            'feattitle' => 'Toggle',
+                            'featslug' => 'toggle',
+                        ],
                     ]
                 ]
             ]

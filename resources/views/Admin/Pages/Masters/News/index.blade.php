@@ -8,6 +8,7 @@
     $hasAddFeature = false;
     $hasEditFeature = false;
     $hasDeleteFeature = false;
+    $hasToggleFeature = false;
     if (count($features->features) > 0) {
         foreach ($features->features as $feature) {
             if ($feature['featslug'] == 'add') {
@@ -36,6 +37,17 @@
               foreach ($feature->permissions as $permission) {
                 if ($permission->permisfeatid == $feature->id) {
                   $hasDeleteFeature = $permission->hasaccess;
+                  break;
+                }
+              }
+            }
+        }
+        
+        foreach ($features->features as $feature) {
+            if ($feature['featslug'] == 'toggle') {
+              foreach ($feature->permissions as $permission) {
+                if ($permission->permisfeatid == $feature->id) {
+                  $hasToggleFeature = $permission->hasaccess;
                   break;
                 }
               }
@@ -123,6 +135,53 @@
       });
 
     });
+
+    function toggle(id, status) { 
+      const hasToggleFeature = {{ isset($hasToggleFeature) ? json_encode($hasToggleFeature) : 'null' }};
+      const letItGo = !hasToggleFeature;
+        if (letItGo) {
+          Swal.fire({
+            title: 'Tidak Memiliki Akses',
+            text: "Anda tidak memiliki akses untuk mengubah data",
+            icon: 'error',
+          })
+          return
+        }
+
+      Swal.fire({
+        title: 'Apakah Anda Yakin ?',
+        text: status == 'upload' ? "Anda akan mengunggah berita ini?" : "Anda akan mengarsipkan berita ini?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yakin',
+        cancelButtonText: 'Tidak'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          $.ajax({
+              url: '{{ route('news.toggle') }}',
+              type: 'POST',
+              data: {
+                  _token: '{{ csrf_token() }}',
+                  id: id,
+                  status: status
+              },
+              success: function(response) {
+                  if (response.message) {
+                    setSuccess(response?.message ?? 'Berhasil!');
+                    table.ajax.reload();
+                  } else {
+                      console.error(response.message);
+                  }
+              },
+              error: function(xhr, status, error) {
+                  console.error('Error:', error);
+              }
+          });
+        }
+      })
+    }
 
     function addForm(url) {
       const hasAddFeature = {{ isset($hasAddFeature) ? json_encode($hasAddFeature) : 'null' }};

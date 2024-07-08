@@ -41,7 +41,9 @@ Route::middleware('auth:web')->group(function () {
 
     Route::group(['prefix' => 'masters'], function () {
         Route::resource('users', UserController::class);
+
         Route::resource('news', NewsController::class);
+        Route::post('news/toggle', [NewsController::class, 'toggle'])->name('news.toggle');
     });
     Route::group(['prefix' => 'settings'], function () {
         Route::resource('permissions', PermissionController::class);
