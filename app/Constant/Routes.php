@@ -10,6 +10,6 @@ class Routes
     const routeMasterNews = 'news.index';
 
     const routeSettingPermission = 'permissions.index';
-
+    const routeSettingFiles = 'files.index';
     const routeSettingTypes = 'types.index';
 }

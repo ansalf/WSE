@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\{
+    FileController,
     MainController,
     NewsController,
     PermissionController,
@@ -50,5 +51,6 @@ Route::middleware('auth:web')->group(function () {
         Route::post('permissions/toggle', [PermissionController::class, 'togglePermission'])->name('permission.toggle');
         
         Route::resource('types', TypeController::class);
+        Route::resource('files', FileController::class);
     });
 });

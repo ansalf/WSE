@@ -132,6 +132,25 @@ class MenuSeeder extends Seeder
                             'featslug' => 'delete',
                         ],
                     ]
+                ],
+                [
+                    'menuroute' => Routes::routeSettingFiles,
+                    'menunm' => 'Files',
+                    'menuicon' => 'fa fa-file',
+                    'features' => [
+                        [
+                            'feattitle' => 'View',
+                            'featslug' => 'view',
+                        ],
+                        [
+                            'feattitle' => 'ViewImg',
+                            'featslug' => 'viewimg',
+                        ],
+                        [
+                            'feattitle' => 'Delete',
+                            'featslug' => 'delete',
+                        ],
+                    ]
                 ]
             ]
         ],
