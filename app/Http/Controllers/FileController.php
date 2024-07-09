@@ -34,7 +34,7 @@ class FileController extends Controller
                 ->addColumn('action', function ($row) {
                     $url = url("storage/$row->directories/$row->filename");
                     $btn = '
-                        <btn onclick="viewImg(`'.$url.'`)" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i></btn>
+                        <btn onclick="viewImg(`' . $url . '`)" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i></btn>
                         <btn onclick="deleteData(`' . route('files.destroy', $row->id) . '`)" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></btn>
                     ';
                     return $btn;
@@ -47,7 +47,7 @@ class FileController extends Controller
         }
 
         $features = $this->setFeatureSession(Routes::routeSettingFiles);
-        
+
         return view('Admin.Pages.Settings.Files.index', compact('features'));
     }
 
@@ -96,6 +96,13 @@ class FileController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $data = $this->file->find($id);
+        if (!$data)
+            return $this->notFound();
+
+        unlink(storage_path("app/public/$data->directories/" . $data->filename));
+
+        $data->delete();
+        return $this->success('Success Delete File', $data);
     }
 }
