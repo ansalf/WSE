@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Type;
 use Illuminate\Support\Str;
 
 function activeMenu($uri = '')
@@ -10,4 +11,9 @@ function activeMenu($uri = '')
         $active = 'active';
     }
     return $active;
+}
+
+function myRole(int $role){
+    $type = new Type();
+    return $type->find($role)->name;
 }
