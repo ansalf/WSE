@@ -28,7 +28,7 @@ class FileController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = $this->file->query();
+            $data = $this->file->with(['transtype'])->get();
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
@@ -38,6 +38,9 @@ class FileController extends Controller
                         <btn onclick="deleteData(`' . route('files.destroy', $row->id) . '`)" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></btn>
                     ';
                     return $btn;
+                })
+                ->addColumn('type', function ($row) {
+                    return $row->transtype->name;
                 })
                 ->addColumn('filesize', function ($row) {
                     return formatBytes($row->filesize);

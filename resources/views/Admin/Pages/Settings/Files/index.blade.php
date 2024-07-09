@@ -72,6 +72,7 @@
                 columns: [
               {data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false},
               {data: 'filename', name: 'filename'},
+              {data: 'type', name: 'type'},
               {data: 'mimetype', name: 'mimetype'},
               {data: 'filesize', name: 'filesize'},
               {data: 'action', name: 'action'},

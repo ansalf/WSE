@@ -19,6 +19,7 @@
                 <tr>
                     <th>#</th>
                     <th>Name</th>
+                    <th>Type</th>
                     <th>Mimetype</th>
                     <th>Size</th>
                     <th>Action</th>
