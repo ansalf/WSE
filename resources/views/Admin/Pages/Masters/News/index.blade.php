@@ -89,6 +89,7 @@
           columns: [
               {data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false},
               {data: 'judul', name: 'judul'},
+              {data: 'stats', name: 'stats'},
               {data: 'category', name: 'category'},
               {data: 'penulis', name: 'penulis'},
               {data: 'action', name: 'action', orderable: false, searchable: false},

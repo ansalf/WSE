@@ -19,6 +19,7 @@
                 <tr>
                     <th>#</th>
                     <th>Judul</th>
+                    <th>Status</th>
                     <th>Kategori</th>
                     <th>Penulis</th>
                     <th>Action</th>

@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\HtmlString;
 use Illuminate\Support\Str;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -29,7 +30,8 @@ class NewsController extends Controller
         $this->menu = $menu;
         $this->file = $file;
     }
-    public function toggle(Request $request) {
+    public function toggle(Request $request)
+    {
         $data = $this->news->find($request->id);
         if (!$data)
             return $this->notFound();
@@ -39,7 +41,7 @@ class NewsController extends Controller
         } else {
             $status = $this->type->getIdByCode(DBTypes::NewsArchived);
         }
-        
+
         $update = collect($request->only($this->news->getFillable()))
             ->filter()
             ->put('status', $status)
@@ -55,9 +57,21 @@ class NewsController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = News::with(['createdBy', 'category'])->get();
+            $data = News::with(['createdBy', 'category', 'stats'])->get();
             return DataTables::of($data)
                 ->addIndexColumn()
+                ->addColumn('stats', function ($row) {
+                    if ($row->status == $this->type->getIdByCode(DBTypes::NewsDraft)) {
+                        $badge = '<div class="badge badge-success">' . $row->stats->name . '</div>';
+                        return new HtmlString($badge);
+                    } else if ($row->status == $this->type->getIdByCode(DBTypes::NewsPublished)) {
+                        $badge = '<div class="badge badge-primary">' . $row->stats->name . '</div>';
+                        return new HtmlString($badge);
+                    } else {
+                        $badge = '<div class="badge badge-info">' . $row->stats->name . '</div>';
+                        return new HtmlString($badge);
+                    }
+                })
                 ->addColumn('category', function ($row) {
                     return $row->category->name ?? '';
                 })
@@ -71,18 +85,18 @@ class NewsController extends Controller
                     ';
                     if ($row->status == $this->type->getIdByCode(DBTypes::NewsDraft)) {
                         $btn .= '
-                            <btn onclick="toggle(`' . $row->id. '`, `upload`)" class="btn btn-success btn-sm"><i class="fa fa-upload"></i></btn>
+                            <btn onclick="toggle(`' . $row->id . '`, `upload`)" class="btn btn-success btn-sm"><i class="fa fa-upload"></i></btn>
                         ';
                     } else if ($row->status == $this->type->getIdByCode(DBTypes::NewsPublished)) {
                         $btn .= '
-                            <btn onclick="toggle(`' . $row->id. '`, `archive`)" class="btn btn-primary btn-sm"><i class="fa fa-archive"></i></btn>
+                            <btn onclick="toggle(`' . $row->id . '`, `archive`)" class="btn btn-primary btn-sm"><i class="fa fa-archive"></i></btn>
                         ';
                     } else if ($row->status == $this->type->getIdByCode(DBTypes::NewsArchived)) {
                         $btn .= '
-                            <btn onclick="toggle(`' . $row->id. '`, `upload`)" class="btn btn-info btn-sm"><i class="fa fa-upload"></i></btn>
+                            <btn onclick="toggle(`' . $row->id . '`, `upload`)" class="btn btn-info btn-sm"><i class="fa fa-upload"></i></btn>
                         ';
                     }
-                    
+
                     return $btn;
                 })
                 ->rawColumns(['action'])
