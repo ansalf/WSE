@@ -8,6 +8,7 @@ class Routes
 
     const routeMasterUsers = 'users.index';
     const routeMasterNews = 'news.index';
+    const routeMasterDemisioner = 'demisioners.index';
 
     const routeSettingPermission = 'permissions.index';
     const routeSettingFiles = 'files.index';

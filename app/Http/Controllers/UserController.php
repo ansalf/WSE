@@ -32,9 +32,12 @@ class UserController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = $this->user->query();
+            $data = $this->user->with(['roles'])->get();
             return DataTables::of($data)
                 ->addIndexColumn()
+                ->addColumn('roles', function ($row) {
+                    return $row->roles->name;
+                })
                 ->addColumn('action', function ($row) {
                     if ($row->id == 1) {
                         $btn = '

@@ -82,6 +82,29 @@ class MenuSeeder extends Seeder
                             'featslug' => 'toggle',
                         ],
                     ]
+                ],
+                [
+                    'menuroute' => Routes::routeMasterDemisioner,
+                    'menunm' => 'Master Demisioners',
+                    'menuicon' => 'fa fa-user-secret',
+                    'features' => [
+                        [
+                            'feattitle' => 'View',
+                            'featslug' => 'view',
+                        ],
+                        [
+                            'feattitle' => 'Add',
+                            'featslug' => 'add',
+                        ],
+                        [
+                            'feattitle' => 'Edit',
+                            'featslug' => 'edit',
+                        ],
+                        [
+                            'feattitle' => 'Delete',
+                            'featslug' => 'delete',
+                        ]
+                    ]
                 ]
             ]
         ],

@@ -6,7 +6,7 @@
           <div class="input-group">
             <input id="datatable-search" type="text" class="form-control" placeholder="Search">
             <div class="input-group-btn">
-              <button type="button" onclick="addForm('{{ route('users.store') }}')" class="btn btn-success btn-sm btn-flat"><i class="fa fa-plus-circle"></i> Tambah</button>
+              <button type="button" onclick="addForm('{{ route('demisioners.store') }}')" class="btn btn-success btn-sm btn-flat"><i class="fa fa-plus-circle"></i> Tambah</button>
             </div>
           </div>
         </form>
@@ -18,9 +18,9 @@
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Role</th>
+                    <th>Nama</th>
+                    <th>Gender</th>
+                    <th>Periode</th>
                     <th>Action</th>
                 </tr>
             </thead>

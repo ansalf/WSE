@@ -10,8 +10,15 @@ class DBTypes
 
     const UserRole = 'userrole';
     const RoleSuperAdmin = 'superadmin';
-    const RoleAdmin = 'admin';
-    const RoleAnggota = 'anggota';
+    const RoleKetum = 'roleKetum';
+    const RoleSekum = 'roleSekum';
+    const RoleBendum = 'roleBendum';
+    const RoleKadivIt = 'roleKadivIt';
+    const RoleKadivRb = 'roleKadivRb';
+    const RoleKadivPr = 'roleKadivPr';
+    const RoleKadivPc = 'roleKadivPc';
+    const RolePH = 'rolePH';
+    const RoleAnggota = 'roleAnggota';
 
     const FileTypes = 'fileTypes';
     const FileTypePic = 'fileTypePic';

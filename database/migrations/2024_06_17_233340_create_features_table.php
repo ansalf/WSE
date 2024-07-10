@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Menu;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -12,10 +13,11 @@ return new class extends Migration
      */
     public function up(): void
     {
+        $menu = new Menu();
         $user = new User();
-        Schema::create('features', function (Blueprint $table) use ($user) {
+        Schema::create('features', function (Blueprint $table) use ($menu, $user) {
             $table->id();
-            $table->bigInteger('featmenuid');
+            $table->foreignId('featmenuid');
             $table->string('feattitle');
             $table->string('featslug')->nullable();
             $table->text('featuredesc')->nullable();
@@ -25,6 +27,7 @@ return new class extends Migration
             $table->timestamps();
             $table->boolean('activations')->default(true);
 
+            $table->foreign('featmenuid')->references($menu->getKeyName())->on($menu->getTable())->onDelete('cascade');
             $table->foreign('created_by')->references($user->getKeyName())->on($user->getTable())->onDelete('cascade');
             $table->foreign('updated_by')->references($user->getKeyName())->on($user->getTable())->onDelete('cascade');
         });

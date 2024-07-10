@@ -60,9 +60,6 @@
         $('#datatable-search').keyup(function(){
             $('#datatable').DataTable().search($(this).val()).draw();
         })
-        $('#datatable-search').keyup(function(){
-            $('#datatable').DataTable().search($(this).val()).draw();
-        })
         
       table = $('#datatable').DataTable({
           "bFilter": true,
@@ -76,6 +73,7 @@
               {data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false},
               {data: 'name', name: 'name'},
               {data: 'email', name: 'email'},
+              {data: 'roles', name: 'roles'},
               {data: 'action', name: 'action', orderable: false, searchable: false},
             ]
       });

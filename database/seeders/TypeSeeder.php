@@ -20,13 +20,39 @@ class TypeSeeder extends Seeder
                     'code' => DBTypes::RoleSuperAdmin
                 ],
                 [
-                    'name' => 'Admin',
-                    'desc' => 'important',
-                    'code' => DBTypes::RoleAdmin
+                    'name' => 'Ketua Umum',
+                    'code' => DBTypes::RoleKetum
+                ],
+                [
+                    'name' => 'Sekretaris Umum',
+                    'code' => DBTypes::RoleSekum
+                ],
+                [
+                    'name' => 'Bendahara Umum',
+                    'code' => DBTypes::RoleBendum
+                ],
+                [
+                    'name' => 'Kepala Divisi IT',
+                    'code' => DBTypes::RoleKadivIt
+                ],
+                [
+                    'name' => 'Kepala Divisi Robotic',
+                    'code' => DBTypes::RoleKadivRb
+                ],
+                [
+                    'name' => 'Kepala Divisi Projas',
+                    'code' => DBTypes::RoleKadivPr
+                ],
+                [
+                    'name' => 'Kepala Divisi PC',
+                    'code' => DBTypes::RoleKadivPc
+                ],
+                [
+                    'name' => 'Pengurus Harian',
+                    'code' => DBTypes::RolePH
                 ],
                 [
                     'name' => 'Anggota',
-                    'desc' => 'important',
                     'code' => DBTypes::RoleAnggota
                 ]
             ]

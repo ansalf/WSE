@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\Demisioner;
 use App\Models\News;
 use App\Models\Permission;
 use App\Models\User;

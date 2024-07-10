@@ -17,7 +17,7 @@ return new class extends Migration
         $user = new User();
         Schema::create('files', function (Blueprint $table) use ($type, $user) {
             $table->id();
-            $table->bigInteger('transtypeid')->constrained($type->getTable())->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('transtypeid');
             $table->bigInteger('refid');
             $table->text('directories');
             $table->string('filename', 100);
@@ -29,6 +29,7 @@ return new class extends Migration
             $table->timestamps();
             $table->boolean('activations')->default(true);
 
+            $table->foreign('transtypeid')->references($type->getKeyName())->on($type->getTable())->onDelete('cascade');
             $table->foreign('created_by')->references($user->getKeyName())->on($user->getTable())->onDelete('cascade');
             $table->foreign('updated_by')->references($user->getKeyName())->on($user->getTable())->onDelete('cascade');
         });

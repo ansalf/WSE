@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Menu;
+use App\Models\Type;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -13,22 +13,20 @@ return new class extends Migration
      */
     public function up(): void
     {
-        $menu = new Menu();
+        $type = new Type();
         $user = new User();
-        Schema::create('menus', function (Blueprint $table) use ($user, $menu) {
+        Schema::create('demisioners', function (Blueprint $table) use ($user, $type) {
             $table->id();
-            $table->foreignId('masterid')->nullable();
-            $table->string('menunm');
-            $table->string('menuroute')->nullable();
-            $table->string('menuicon')->nullable();
-            $table->integer('menuseq')->nullable();
+            $table->string('nama');
+            $table->string('periode');
+            $table->foreignId('gender');
 
             $table->foreignId('created_by')->nullable();
             $table->foreignId('updated_by')->nullable();
             $table->timestamps();
             $table->boolean('activations')->default(true);
 
-            $table->foreign('masterid')->references($menu->getKeyName())->on($menu->getTable())->onDelete('cascade');
+            $table->foreign('gender')->references($type->getKeyName())->on($type->getTable())->onDelete('cascade');
             $table->foreign('created_by')->references($user->getKeyName())->on($user->getTable())->onDelete('cascade');
             $table->foreign('updated_by')->references($user->getKeyName())->on($user->getTable())->onDelete('cascade');
         });
@@ -39,6 +37,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('menus');
+        Schema::dropIfExists('demisioners');
     }
 };

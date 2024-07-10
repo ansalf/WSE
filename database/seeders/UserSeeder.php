@@ -36,7 +36,7 @@ class UserSeeder extends Seeder
                 'username'	=> 'novan',
                 'email'	=> 'novan@gmail.com',
                 'password'	=> Hash::make('123'),
-                'role' => $this->findType(DBTypes::RoleAdmin),
+                'role' => $this->findType(DBTypes::RoleAnggota),
                 'gender' => $this->findType(DBTypes::UserGenderM),
             ],
         ]);

@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Feature;
+use App\Models\Type;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -13,10 +15,12 @@ return new class extends Migration
     public function up(): void
     {
         $user = new User();
-        Schema::create('permissions', function (Blueprint $table) use ($user) {
+        $feature = new Feature();
+        $type = new Type();
+        Schema::create('permissions', function (Blueprint $table) use ($user, $feature, $type) {
             $table->id();
-            $table->bigInteger('role');
-            $table->bigInteger('permisfeatid');
+            $table->foreignId('role');
+            $table->foreignId('permisfeatid');
             $table->boolean('hasaccess')->default(true);
 
             $table->foreignId('created_by')->nullable();
@@ -26,6 +30,8 @@ return new class extends Migration
             
             $table->foreign('created_by')->references($user->getKeyName())->on($user->getTable())->onDelete('cascade');
             $table->foreign('updated_by')->references($user->getKeyName())->on($user->getTable())->onDelete('cascade');
+            $table->foreign('permisfeatid')->references($feature->getKeyName())->on($feature->getTable())->onDelete('cascade');
+            $table->foreign('role')->references($type->getKeyName())->on($type->getTable())->onDelete('cascade');
         });
     }
 
