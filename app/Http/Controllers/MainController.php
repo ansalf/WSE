@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Constant\Systems;
+use App\Models\Demisioner;
+use App\Models\File;
 use App\Models\Menu;
+use App\Models\News;
 use App\Models\Permission;
+use App\Models\User;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Support\Facades\Auth;
 
@@ -50,7 +54,17 @@ class MainController extends Controller
     public function dashboard()
     {
         $this->setMenuSession();
+        $users = User::count();
+        $demis = Demisioner::count();
+        $news = News::count();
 
-        return view('Admin.Pages.dashboard');
+        $files = File::all();
+        $storage = 0;
+        foreach ($files as $key => $value) {
+            $storage += $value->filesize;
+        }
+        $storage = formatBytes($storage);
+
+        return view('Admin.Pages.dashboard', compact('users', 'demis', 'news', 'storage'));
     }
 }
