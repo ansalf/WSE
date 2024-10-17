@@ -39,12 +39,13 @@
 
 	      <div class="collapse navbar-collapse" id="ftco-nav">
 	        <ul class="navbar-nav ml-auto">
-                <li class="nav-item @yield('nav_index')"><a href="{{ route('utama') }}" class="nav-link">Halaman Utama</a></li>
+                <li class="nav-item @yield('nav_index')"><a href="{{ route('utama') }}" class="nav-link">Main</a></li>
                 <li class="nav-item @yield('nav_it')"><a href="{{ route('it') }}" class="nav-link">Divisi IT</a></li>
                 <li class="nav-item @yield('nav_projas')"><a href="{{ route('projas') }}" class="nav-link">Divisi Projas</a></li>
                 <li class="nav-item @yield('nav_pc')"><a href="{{ route('pc') }}" class="nav-link">Divisi PC</a></li>
                 <li class="nav-item @yield('nav_robotik')"><a href="{{ route('robotik') }}" class="nav-link">Divisi Robotik</a></li>
                 <li class="nav-item @yield('nav_struktur')"><a href="{{ route('struktur') }}" class="nav-link">Struktur Kepengurusan</a></li>
+                <li class="nav-item @yield('nav_demis')"><a href="{{ route('demisioner') }}" class="nav-link">Demisioners</a></li>
               </ul>
 	      </div>
 	    </div>
@@ -125,6 +126,7 @@
     <script src="{{ asset('js/scrollax.min.js') }}"></script>
     <script src="{{ asset('js/google-map.js') }}"></script>
     <script src="{{ asset('js/main.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
     
   </body>

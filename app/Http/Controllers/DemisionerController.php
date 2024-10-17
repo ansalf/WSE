@@ -33,6 +33,12 @@ class DemisionerController extends Controller
         $this->prestasi = $prestasi;
         $this->jabatan = $jabatan;
     }
+
+    public function look(string $id, Request $request)
+    {
+        $data = $this->demisioner->getQuery()->find(decrypt($id));
+        return view('main.dt_demis', compact('data'));
+    }
     /**
      * Display a listing of the resource.
      */

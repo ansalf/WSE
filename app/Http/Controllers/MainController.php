@@ -2,28 +2,36 @@
 
 namespace App\Http\Controllers;
 
+use App\Constant\DBTypes;
 use App\Constant\Systems;
 use App\Models\Demisioner;
 use App\Models\File;
-use App\Models\Menu;
 use App\Models\News;
+use App\Models\Menu;
 use App\Models\Permission;
+use App\Models\Type;
 use App\Models\User;
+use App\Services\DemisionerServices;
+use App\Services\NewsServices;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Support\Facades\Auth;
 
 class MainController extends Controller
 {
-    protected $menu, $permission;
-    public function __construct(Menu $menu, Permission $permission)
+    protected $menu, $permission, $news, $type, $demisioner;
+    public function __construct(Menu $menu, Permission $permission, NewsServices $news, Type $type, DemisionerServices $demisioner)
     {
+        $this->type = $type;
+        $this->news = $news;
+        $this->demisioner = $demisioner;
         $this->permission = $permission;
         $this->menu = $menu;
     }
 
     public function utama()
     {
-        return view('index');
+        $news = $this->news->getQuery()->where('status', $this->type->getIdByCode(DBTypes::NewsPublished))->get();
+        return view('index', compact('news'));
     }
 
     public function it()
@@ -49,6 +57,12 @@ class MainController extends Controller
     public function struktur()
     {
         return view('main.struktur');
+    }
+
+    public function demisioner()
+    {
+        $demis = $this->demisioner->getQuery()->get();
+        return view('main.demisioners', compact('demis'));
     }
 
     public function dashboard()

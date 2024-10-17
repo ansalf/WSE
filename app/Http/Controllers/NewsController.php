@@ -30,6 +30,13 @@ class NewsController extends Controller
         $this->menu = $menu;
         $this->file = $file;
     }
+
+    public function look(string $id, Request $request)
+    {
+        $data = $this->news->getQuery()->find(decrypt($id));
+        return view('main.dt_news', compact('data'));
+    }
+
     public function toggle(Request $request)
     {
         $data = $this->news->find($request->id);

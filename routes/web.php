@@ -11,6 +11,7 @@ use App\Http\Controllers\{
     TypeController,
     UserController,
 };
+use App\Models\Demisioner;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,12 +25,15 @@ use App\Http\Controllers\{
 */
 
 Route::get('/', [MainController::class, 'utama'])->name('utama');
+Route::get('/{id}', [NewsController::class, 'look'])->name('read-news');
 Route::group(['prefix' => 'wse'], function () {
     Route::get('/it', [MainController::class, 'it'])->name('it');
     Route::get('/projas', [MainController::class, 'projas'])->name('projas');
     Route::get('/pc', [MainController::class, 'pc'])->name('pc');
     Route::get('/robotik', [MainController::class, 'robotik'])->name('robotik');
     Route::get('/struktur', [MainController::class, 'struktur'])->name('struktur');
+    Route::get('/demisioner', [MainController::class, 'demisioner'])->name('demisioner');
+    Route::get('/demisioner/{id}', [DemisionerController::class, 'look'])->name('read-demis');
 });
 
 Route::middleware('guest')->group(function () {
